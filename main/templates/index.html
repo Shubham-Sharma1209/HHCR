@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{% static "styles.css"%}">
+</head>
+<body>
+    <div>
+        <div class="navbar nav-top"> 
+            <div class="nav-back"></div>
+            <h1>HHCR</h1>
+        </div>
+        <div>
+            <div class="uploadimage d-flex justify-content-center">
+                <div class="image_show">
+                    <img id="up" src="D:\Programming\Django\hhcr\out.jpg" alt="Uploaded Image">
+                </div>  
+                <div class="upload">
+                    <button id="uploadButton" type="button">Upload</button>
+                </div>
+            </div>
+            <div class="UploadBox">
+                <div class="d-flex justify-content-around">
+                    <input id="fileuploader" type="file" onchange="readURL(this);" hidden>
+                    <button onclick="document.getElementById('fileuploader').click()">
+                        <img src={% static "cloud-upload-signal-svgrepo-com.svg" %}>
+                        <h5>Select file</h5>
+                    </button>
+                </div>
+                <p><span>or</span> <a href="#" id="filelink" onclick="document.getElementById('fileuploader').click()">Drop files here</a></p>    
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function readURL(input) {
+        
+         if (input.files && input.files[0]) {
+             var reader = new FileReader();
+             reader.onload = function (e) {
+                    $('#up').attr('src', e.target.result);
+                     
+                    $('.UploadBox').css("visibility","hidden");
+                    $('.uploadimage').css("visibility","visible");             };
+
+             reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $(document).ready(function (e) {
+        $("#fileuploader").change(function(){
+                readURL(this);
+            });
+        
+        $('#uploadButton').on('click',(function(e) {
+            e.preventDefault();
+
+            var file1 = document.getElementById("fileuploader").files[0];
+            
+            var formData = new FormData();
+            formData.append('imagePath', file1);
+            
+            $.ajax({
+                type:'POST',
+                url: 'detect',
+                data:formData,
+                contentType: 'multipart/form-data',
+                cache:false,
+                contentType: false,
+                processData: false,
+                success:function(data){
+                    window.open("/send","_blank")
+                    console.log("success");
+                    },
+                error: function(data){
+                    console.log("error");
+                    
+                    }
+                });
+            }));
+            
+            });
+    </script>
+</body>
+</html>

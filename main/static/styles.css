@@ -1,0 +1,106 @@
+*{ 
+    /* border: 2px  solid red; */
+    margin:0;
+    padding:0;
+    --button-color:	#D2042D;
+    --text-color:black;
+    
+}
+body{
+    background-color:lightgrey;
+}
+.nav-top{
+    background-color: rgba(50,50,50,0.8);
+    background-color:gray;
+    
+    width:100%;
+    height:10vh;
+    position:fixed;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.nav-back{
+/* background:linear-gradient(rgba(25,25,25,0.8), #eee,rgba(25,25,25,0.8)); */
+    /* background:repeating-radial-gradient(rgba(25,25,25,0.8)); */
+    background:repeating-linear-gradient(black 0%,white 80%,);  
+}
+.nav-top h1{
+    margin:0px auto;
+    color:#111;
+}
+.UploadBox{
+    
+    width:50vw;
+    height:45vh;
+    position:fixed;  
+    margin: auto;
+    top:20vh;
+    left:25%;  
+    padding:5vw; 
+    /* visibility:hidden; */
+}
+.UploadBox button{
+    width:100%;
+    height:100%;
+    background-color:var(--button-color);
+    border-radius:35px;
+    box-shadow: 5px 5px 20px 2px rgba(0,0,0,0.6);
+    border:none;
+}
+.UploadBox p{
+    text-align:center;
+    margin:5px;
+    font-size: larger;
+}
+.UploadBox span{
+    font-size:smaller;
+}
+.UploadBox img{
+    width:30%;
+    height:auto;
+    /* position:relative; */
+    margin:0px auto;
+}
+a{
+    text-decoration:none;
+    color:black;
+}
+
+#uploadbButton{
+    /* border:5px solid red; */
+    width:100%;
+    width:0px;
+    margin:0px auto;
+}
+.uploadimage{
+    position:fixed;
+    height:70vh;    
+    top:18vh;
+    width:100%;
+    visibility: hidden;
+}
+.image_show{
+    text-align: center;
+    width:45%;
+    /* visibility:hidden ; */
+    border: 10px solid gray;
+}
+.image_show img{
+    /* margin:10%; */
+    width:100%;
+    height:100%;
+}
+.upload{
+    width:30%;
+    /* border:2px solid red; */
+    padding: 30vh 10vw;
+    text-align: center;
+    /*  visibility: hidden; */
+}
+.upload button{
+    height:100%;
+    width:100%;
+    border:None;
+    border-radius:35px;
+    background-color:var(--button-color);
+    font-weight: bold;
+}
