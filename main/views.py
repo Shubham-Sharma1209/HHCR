@@ -12,7 +12,7 @@ import base64
 
 def send_file(response):
 
-    img = open('D:\Programming\Django\hhcr\out.jpg', 'rb')
+    img = open('.\out.jpg', 'rb')
 
     response = FileResponse(img)
 
@@ -42,7 +42,7 @@ class DetectView(APIView):
             segment_and_predict()
         except:
             return response()
-        img = open("D:\Programming\Django\hhcr\out.jpg", 'rb')
+        img = open(".\\out.jpg", 'rb')
         response = FileResponse(img)
         return response
 

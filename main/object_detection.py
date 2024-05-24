@@ -30,15 +30,16 @@ def rescale_img(img):
 
 def segment_and_predict():
 
-    dir_path="D:\Programming\Django\\hhcr\\uploads\\"
+    dir_path=".\hhcr\\uploads\\"
     path=list(paths.list_images(dir_path))
     if len(path)==0:
         return FileNotFoundError
     path=path[0]
+    print(path)
     img=cv.imread(path)
-    characters=pd.read_csv("D:\Programming\Django\hhcr\characters.csv",index_col="index")
+    characters=pd.read_csv(".\hhcr\characters.csv",index_col="index")
 
-    fontpath="D:\Programming\Django\hhcr\MartelSans-Light.ttf"
+    fontpath=".\hhcr\MartelSans-Light.ttf"
     font = ImageFont.truetype(fontpath, 32)
 
 
@@ -219,56 +220,22 @@ def segment_and_predict():
                             start=bel+1
                 # else:
                 #     start+=1
-                
-        
-            # if bel-start<=5:
-            #     continue
-            # cv.imwrite(f'./characters/{n}_{x}_{y}_{w}_{h}.png',word[:,start:bel+2])
-            # cv.imshow('word-{k}',word)
             k+=1
             # print(k)   
 
-    char_splitter(out_img)
-    # for x,y,x_r,y_b in word_contours:
-    #     # result=predict_images((img[y:y_b,x:x_r]))
-    #     result=predict_images(add_padding(img[y:y_b,x:x_r]))
-    #     out_img=cv.rectangle(out_img,(x,y),(x_r,y_b),(0,0,255),1)
-    #     cv.putText(out_img,characters.iloc[int(result),2] , (x,y-10 ), cv.FONT_HERSHEY_SIMPLEX, 0.6, (26,4,135), 1)
-    #     draw.rectangle((x,y,x_r,y_b),(0,0,255))
-    #     draw.text((x,y-10),characters.iloc[int(result),1],font=font,fill=(12,255,212,0))
-    # out_img=np.array(img_pil)
-
-
-
-    # from char_predictor import *
-
-    # path='./characters'
-    # # path='characters'
-    # imagePaths=(list(paths.list_files(path)))
-    # characters=pd.read_csv("characters.csv",index_col="index")
-
-    # predict_images(imagePaths)
-    # for i,imagePath in enumerate(imagePaths):
-    #     print(imagePath)
-    #     char=imagePath.split('\\')[-1].split('-')[0]
-    #     loc=imagePath.split('\\')[-1].split('-')[1]
-    #     print(loc)
-    #     loc=loc.split('.')[0]
-    #     print(loc)
-    #     loc=list(map(lambda x:int(x),loc.split('_')))
-    #     print(loc)
-    #     out_img=cv.rectangle(out_img,(loc[0],loc[1]),(loc[2],loc[3]),(255,0,0),1)
-        # img=cv.imread(imagePath)
-        # if img is None:
-        #     continue
-        # if 0 in img.shape:
-        #     continue
-        # img=cv.cvtColor(img,cv.COLOR_BGR2GRAY)
-
-
+    # char_splitter(out_img)
+    for x,y,x_r,y_b in word_contours:
+        # result=predict_images((img[y:y_b,x:x_r]))
+        result=predict_images(add_padding(img[y:y_b,x:x_r]))
+        out_img=cv.rectangle(out_img,(x,y),(x_r,y_b),(0,0,255),1)
+        cv.putText(out_img,characters.iloc[int(result),2] , (x,y-10 ), cv.FONT_HERSHEY_SIMPLEX, 0.6, (26,4,135), 1)
+        draw.rectangle((x,y,x_r,y_b),(0,0,255))
+        draw.text((x,y-10),characters.iloc[int(result),1],font=font,fill=(12,255,212,0))
+    out_img=np.array(img_pil)
 
     # cv.imshow("Output image",out_img)
     # plt.show()
     cv.imwrite('out.jpg',out_img)
+    # for path
     os.remove(path)
     # cv.waitKey(0)
